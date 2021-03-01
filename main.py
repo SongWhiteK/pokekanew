@@ -46,25 +46,9 @@ def callback():
 def handle_message(event):
     if "シャイ" in event.message.text:
         i = 0
-        data = requests.get(amazon_url[i], headers = my_header)
-        data.encoding = data.apparent_encoding
-        data = data.text
-        soup = BeautifulSoup(data, "html.parser")
-        detail = soup.find("table",class_="no_size")
-        detailstr = str(detail)
-        if "soldout" in detailstr:
-            result_str = "売り切れ"
-        elif "yoyaku" in detailstr:
-            result_str = "予約受付中"
-        elif "add_cart_btn":
-            result_str = "在庫あり"
-
         line_bot_api.reply_message(
             event.reply_token,
-            TextSendMessage(text=amazon_url[i]+result_str))
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=event.message.text))
+            TextSendMessage(text=card[i]))
 
 if __name__ == "__main__":
 #    app.run()
