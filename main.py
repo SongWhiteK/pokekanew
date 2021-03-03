@@ -22,6 +22,8 @@ pokeka_url = [
     "https://www.pokemoncenter-online.com/?p_cd=4521329266541"
         ]
 card = ["シャイニースターV" , "TAG TEAM GX BOX"]
+result_str = ["売り切れ","予約受付中","在庫あるよ"]
+
 
 @app.route("/")
 def hello_world():
@@ -58,9 +60,13 @@ def handle_message(event):
         soup = BeautifulSoup(data, "html.parser")
         detail = soup.find("table",class_="no_size")
         detailstr = str(detail)
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=detailstr))
+        if "soldout" in detailstr:
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=card[i]+result_str[0]))
+        elif "yoyaku" in detailstr:
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=card[i]+result_str[1]))
+        elif "add_cart_btn" in detailstr:
+            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=card[i]+result_str[2]))
+
 
 
 if __name__ == "__main__":
