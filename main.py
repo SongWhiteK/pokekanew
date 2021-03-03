@@ -57,18 +57,18 @@ def handle_message(event):
         i = 1
     
 
-        data = requests.get(pokeka_url[i], headers = my_header)
-        data.encoding = data.apparent_encoding
-        data = data.text
-        soup = BeautifulSoup(data, "html.parser")
-        detail = soup.find("table",class_="no_size")
-        detailstr = str(detail)
-        if "soldout" in detailstr:
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=card[i]+result_str[0]))
-        elif "yoyaku" in detailstr:
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=card[i]+result_str[1]))
-        elif "add_cart_btn" in detailstr:
-            line_bot_api.reply_message(event.reply_token,TextSendMessage(text=card[i]+result_str[2]))
+    data = requests.get(pokeka_url[i], headers = my_header)
+    data.encoding = data.apparent_encoding
+    data = data.text
+    soup = BeautifulSoup(data, "html.parser")
+    detail = soup.find("table",class_="no_size")
+    detailstr = str(detail)
+    if "soldout" in detailstr:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=card[i]+result_str[0]))
+    elif "yoyaku" in detailstr:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=card[i]+result_str[1]))
+    elif "add_cart_btn" in detailstr:
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=card[i]+result_str[2]))
 
             
 
