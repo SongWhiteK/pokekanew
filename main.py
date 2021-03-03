@@ -46,6 +46,9 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    my_header = {
+        "User-Agent" : "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; NP06; rv:11.0) like Gecko"
+    }
     if "シャイ" in event.message.text:
         i = 0
         line_bot_api.reply_message(
