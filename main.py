@@ -1,5 +1,7 @@
 from flask import Flask, request, abort
 import os
+import requests
+from bs4 import BeautifulSoup
 
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
