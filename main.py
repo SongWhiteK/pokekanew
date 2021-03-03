@@ -15,7 +15,7 @@ YOUR_CHANNEL_SECRET = os.environ["YOUR_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(YOUR_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
-amazon_url = [
+pokeka_url = [
     "https://www.pokemoncenter-online.com/?p_cd=4521329313405",
     "https://www.pokemoncenter-online.com/?p_cd=4521329266541"
         ]
@@ -49,6 +49,16 @@ def handle_message(event):
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=card[i]))
+        data = requests.get(pokeka_url[i], headers = my_header)
+        data.encoding = data.apparent_encoding
+        data = data.text
+        soup = BeautifulSoup(data, "html.parser")
+        detail = soup.find("table",class_="no_size")
+        detailstr = str(detail)
+        line_bot_api.reply_message(
+            event.reply_token,
+            TextSendMessage(text=detailstr))
+
 
 if __name__ == "__main__":
 #    app.run()
