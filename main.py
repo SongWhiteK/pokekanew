@@ -51,9 +51,7 @@ def handle_message(event):
     }
     if "TAG" in event.message.text:
         i = 1
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=card[i]))
+
         data = requests.get(pokeka_url[i], headers = my_header)
         data.encoding = data.apparent_encoding
         data = data.text
