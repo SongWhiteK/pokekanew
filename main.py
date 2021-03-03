@@ -51,8 +51,11 @@ def handle_message(event):
     my_header = {
         "User-Agent" : "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; NP06; rv:11.0) like Gecko"
     }
+    if "シャイ" in event.message.text:
+        i = 0
     if "TAG" in event.message.text:
         i = 1
+    
 
         data = requests.get(pokeka_url[i], headers = my_header)
         data.encoding = data.apparent_encoding
@@ -67,6 +70,7 @@ def handle_message(event):
         elif "add_cart_btn" in detailstr:
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text=card[i]+result_str[2]))
 
+            
 
 
 if __name__ == "__main__":
